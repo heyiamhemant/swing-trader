@@ -17,21 +17,6 @@ fi
 
 mkdir -p data
 
-CMD="${1:-scan}"
-
-case "$CMD" in
-    scan)
-        echo "Running full market scan..."
-        python main.py scan
-        echo "Generating dashboard..."
-        python main.py dashboard
-        ;;
-    dashboard)
-        echo "Generating dashboard..."
-        python main.py dashboard
-        ;;
-    *)
-        echo "Running: python main.py $@"
-        python main.py "$@"
-        ;;
-esac
+PORT="${1:-5050}"
+echo "Starting Swing Trader at http://localhost:$PORT"
+python server.py "$PORT"
