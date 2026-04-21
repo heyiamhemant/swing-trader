@@ -1,0 +1,512 @@
+sectors:
+  # ── TECHNOLOGY ──────────────────────────────────────────────
+  mega_cap_tech:
+    - AAPL
+    - MSFT
+    - GOOGL
+    - AMZN
+    - META
+    - NVDA
+    - TSLA
+    - AVGO
+    - ORCL
+    - CRM
+    - ADBE
+    - ACN
+    - CSCO
+    - IBM
+    - INTC
+    - TXN
+    - QCOM
+    - AMD
+    - MU
+    - AMAT
+    - LRCX
+    - KLAC
+    - MRVL
+    - ADI
+    - NXPI
+    - ON
+    - MCHP
+    - SWKS
+
+  software_cloud:
+    - NOW
+    - PANW
+    - CRWD
+    - SNOW
+    - DDOG
+    - NET
+    - PLTR
+    - ZS
+    - FTNT
+    - WDAY
+    - TEAM
+    - MDB
+    - HUBS
+    - VEEV
+    - ANSS
+    - CDNS
+    - SNPS
+    - INTU
+    - ADSK
+    - TTD
+    - BILL
+    - DOCN
+    - PATH
+    - S
+    - CFLT
+    - GTLB
+    - ESTC
+    - MNDY
+    - OKTA
+    - TWLO
+
+  internet_media:
+    - NFLX
+    - SPOT
+    - PINS
+    - SNAP
+    - ROKU
+    - RBLX
+    - U
+    - DIS
+    - WBD
+    - PARA
+    - ABNB
+    - BKNG
+    - UBER
+    - LYFT
+    - DASH
+    - SHOP
+    - MELI
+    - SE
+    - ETSY
+    - EBAY
+    - ZG
+    - YELP
+    - MTCH
+
+  # ── FINANCIALS ──────────────────────────────────────────────
+  banks:
+    - JPM
+    - BAC
+    - WFC
+    - C
+    - GS
+    - MS
+    - USB
+    - PNC
+    - TFC
+    - SCHW
+    - BK
+    - STT
+    - FITB
+    - CFG
+    - KEY
+    - HBAN
+    - RF
+    - ZION
+
+  fintech_payments:
+    - V
+    - MA
+    - PYPL
+    - SQ
+    - FIS
+    - FISV
+    - GPN
+    - AXP
+    - COF
+    - DFS
+    - AFRM
+    - SOFI
+    - COIN
+    - HOOD
+    - NU
+
+  insurance_diversified:
+    - BRK-B
+    - AIG
+    - MET
+    - PRU
+    - AFL
+    - ALL
+    - TRV
+    - PGR
+    - CB
+    - MMC
+    - AON
+    - AJG
+    - BLK
+    - BX
+    - KKR
+    - APO
+    - ARES
+
+  # ── HEALTHCARE ──────────────────────────────────────────────
+  pharma:
+    - JNJ
+    - PFE
+    - ABBV
+    - LLY
+    - MRK
+    - BMY
+    - AMGN
+    - GILD
+    - REGN
+    - VRTX
+    - AZN
+    - NVO
+    - SNY
+    - GSK
+    - ZTS
+    - BIIB
+    - MRNA
+    - BNTX
+    - ALNY
+
+  health_services:
+    - UNH
+    - ELV
+    - CI
+    - HUM
+    - CNC
+    - CVS
+    - MCK
+    - ABC
+    - CAH
+    - HCA
+    - THC
+    - UHS
+
+  medtech:
+    - ABT
+    - MDT
+    - SYK
+    - BSX
+    - ISRG
+    - EW
+    - BDX
+    - ZBH
+    - BAX
+    - DXCM
+    - HOLX
+    - ALGN
+    - IDXX
+    - TMO
+    - DHR
+    - A
+    - IQV
+    - TECH
+
+  # ── CONSUMER DISCRETIONARY ─────────────────────────────────
+  retail:
+    - HD
+    - LOW
+    - TJX
+    - ROST
+    - TGT
+    - DG
+    - DLTR
+    - BBY
+    - TSCO
+    - ORLY
+    - AZO
+    - AAP
+    - KMX
+    - FIVE
+    - LULU
+    - NKE
+    - GPS
+    - ANF
+    - DECK
+    - CROX
+
+  consumer_brands:
+    - MCD
+    - SBUX
+    - CMG
+    - YUM
+    - DPZ
+    - DRI
+    - QSR
+    - WEN
+    - WING
+
+  auto_ev:
+    - GM
+    - F
+    - RIVN
+    - LCID
+    - LI
+    - NIO
+    - XPEV
+    - APTV
+    - BWA
+    - LEA
+
+  # ── CONSUMER STAPLES ───────────────────────────────────────
+  consumer_staples:
+    - KO
+    - PEP
+    - PG
+    - CL
+    - KMB
+    - CLX
+    - CHD
+    - COST
+    - WMT
+    - KR
+    - SYY
+    - HSY
+    - GIS
+    - K
+    - MDLZ
+    - MO
+    - PM
+    - STZ
+    - BF-B
+    - SAM
+    - EL
+    - MNST
+
+  # ── ENERGY ─────────────────────────────────────────────────
+  oil_gas:
+    - XOM
+    - CVX
+    - COP
+    - EOG
+    - SLB
+    - HAL
+    - BKR
+    - OXY
+    - DVN
+    - FANG
+    - MPC
+    - VLO
+    - PSX
+    - HES
+    - OKE
+    - WMB
+    - KMI
+    - ET
+    - TRGP
+
+  clean_energy:
+    - ENPH
+    - SEDG
+    - FSLR
+    - NEE
+    - AES
+    - CEG
+    - VST
+    - RUN
+    - PLUG
+    - BE
+    - NOVA
+
+  # ── INDUSTRIALS ────────────────────────────────────────────
+  industrial_conglom:
+    - CAT
+    - HON
+    - MMM
+    - GE
+    - RTX
+    - LMT
+    - NOC
+    - GD
+    - BA
+    - LHX
+    - TDG
+    - HWM
+    - TXT
+    - EMR
+    - ETN
+    - ROK
+    - AME
+    - ITW
+    - PH
+    - DOV
+
+  transport_logistics:
+    - UNP
+    - CSX
+    - NSC
+    - UPS
+    - FDX
+    - JBHT
+    - XPO
+    - DAL
+    - UAL
+    - LUV
+    - AAL
+    - DE
+    - AGCO
+    - CNH
+    - PCAR
+    - CMI
+    - WAB
+    - FAST
+    - GWW
+    - NDSN
+
+  # ── MATERIALS ──────────────────────────────────────────────
+  materials:
+    - LIN
+    - APD
+    - SHW
+    - ECL
+    - DD
+    - DOW
+    - NEM
+    - FCX
+    - GOLD
+    - NUE
+    - STLD
+    - CLF
+    - X
+    - AA
+    - ALB
+    - FMC
+    - CF
+    - MOS
+    - IFF
+    - PPG
+    - VMC
+    - MLM
+    - CX
+
+  # ── REAL ESTATE ────────────────────────────────────────────
+  reits:
+    - AMT
+    - PLD
+    - CCI
+    - EQIX
+    - SPG
+    - O
+    - VICI
+    - DLR
+    - PSA
+    - WELL
+    - AVB
+    - EQR
+    - MAA
+    - INVH
+    - ARE
+    - IRM
+    - VTR
+    - KIM
+    - REG
+    - HST
+
+  # ── UTILITIES ──────────────────────────────────────────────
+  utilities:
+    - DUK
+    - SO
+    - D
+    - AEP
+    - EXC
+    - SRE
+    - XEL
+    - WEC
+    - ES
+    - ED
+    - AWK
+    - ATO
+    - NI
+
+  # ── COMMUNICATION SERVICES ────────────────────────────────
+  telecom_media:
+    - T
+    - VZ
+    - TMUS
+    - CMCSA
+    - CHTR
+    - EA
+    - TTWO
+    - NWSA
+    - OMC
+    - IPG
+    - LYV
+
+etfs:
+  broad_market:
+    - SPY
+    - QQQ
+    - DIA
+    - IWM
+    - IWF
+    - IWD
+    - VTI
+    - VOO
+    - RSP
+    - MDY
+    - IJR
+
+  sector:
+    - XLF
+    - XLE
+    - XLK
+    - XLV
+    - XLI
+    - XLP
+    - XLU
+    - XLB
+    - XLC
+    - XLRE
+    - XBI
+    - IBB
+    - KRE
+    - ITB
+    - XHB
+    - IYR
+    - IYT
+    - XME
+
+  thematic:
+    - ARKK
+    - ARKW
+    - ARKF
+    - VGT
+    - SOXX
+    - SMH
+    - BOTZ
+    - ROBO
+    - LIT
+    - TAN
+    - ICLN
+    - KWEB
+    - CQQQ
+    - HACK
+    - SKYY
+    - CLOU
+    - AIQ
+    - QTEC
+
+  fixed_income_defensive:
+    - GLD
+    - SLV
+    - TLT
+    - IEF
+    - SHY
+    - TIP
+    - LQD
+    - HYG
+    - AGG
+    - BND
+    - BNDX
+    - EMB
+
+  international:
+    - EEM
+    - VWO
+    - EFA
+    - IEMG
+    - FXI
+    - INDA
+    - EWZ
+    - EWJ
+    - EWG
+    - EWU
+    - MCHI

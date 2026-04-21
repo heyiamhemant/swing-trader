@@ -1,0 +1,104 @@
+capital:
+  total: 1000
+  max_positions: 10
+  min_position_size: 50
+  max_sector_exposure: 3  # max stocks from same sector
+
+scoring:
+  weights:
+    technical: 0.45
+    fundamental: 0.35
+    macro: 0.20
+  min_score_threshold: 55  # minimum composite score to consider
+
+technical:
+  rsi:
+    period: 14
+    oversold: 30
+    overbought: 70
+    buy_zone_low: 30
+    buy_zone_high: 45
+    weight: 0.15
+  macd:
+    fast: 12
+    slow: 26
+    signal: 9
+    weight: 0.20
+  ema:
+    short: 50
+    long: 200
+    weight: 0.15
+  bollinger:
+    period: 20
+    std_dev: 2
+    weight: 0.10
+  volume:
+    avg_period: 20
+    spike_multiplier: 1.5
+    weight: 0.10
+  adx:
+    period: 14
+    strong_trend: 25
+    weight: 0.10
+  support_resistance:
+    lookback: 60
+    proximity_pct: 0.03  # within 3% of level
+    weight: 0.20
+
+fundamental:
+  pe_ratio:
+    max_acceptable: 40
+    weight: 0.15
+  revenue_growth:
+    min_yoy: 0.10
+    weight: 0.20
+  eps_growth:
+    min_yoy: 0.05
+    weight: 0.20
+  debt_to_equity:
+    max_acceptable: 1.5
+    weight: 0.15
+  roe:
+    min_acceptable: 0.15
+    weight: 0.15
+  free_cash_flow:
+    weight: 0.15
+
+macro:
+  regimes:
+    bull:
+      spy_above_200ema: true
+      vix_below: 20
+      yield_curve_normal: true
+      allocation_pct: 1.0
+      tilt: growth
+    neutral:
+      allocation_pct: 0.70
+      tilt: balanced
+    bear:
+      spy_below_200ema: true
+      vix_above: 30
+      yield_curve_inverted: true
+      allocation_pct: 0.50
+      tilt: defensive
+
+risk:
+  stop_loss:
+    atr_multiplier: 2.0
+    hard_floor_pct: 0.08  # -8% max loss
+  target:
+    atr_multiplier: 3.0
+    min_rr_ratio: 1.5
+  trailing_stop:
+    activation_pct: 0.05  # activate after +5%
+    atr_multiplier: 2.0
+
+data:
+  price_lookback_days: 365
+  cache_expiry_hours: 12
+  fred_series:
+    yield_spread: "T10Y2Y"
+    vix: "VIXCLS"
+    fed_funds: "FEDFUNDS"
+    unemployment: "UNRATE"
+    cpi: "CPIAUCSL"

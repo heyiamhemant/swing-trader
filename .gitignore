@@ -1,0 +1,15 @@
+# Runtime data
+data/*.db
+data/*.json
+data/*.csv
+data/*.txt
+data/dashboard.html
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
