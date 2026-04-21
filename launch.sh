@@ -7,10 +7,10 @@ cd "$DIR"
 export FRED_API_KEY="db81286cac821c59591a01557838f502"
 
 if [ ! -d ".venv" ]; then
-    echo "Creating virtual environment..."
+    echo "Setting up for the first time..."
     python3 -m venv .venv
     source .venv/bin/activate
-    pip install -r requirements.txt
+    pip install -q -r requirements.txt
 else
     source .venv/bin/activate
 fi
@@ -18,5 +18,10 @@ fi
 mkdir -p data
 
 PORT="${1:-5050}"
-echo "Starting Swing Trader at http://localhost:$PORT"
+
+# Kill any existing server on this port
+lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
+sleep 0.3
+
+echo "Swing Trader: http://localhost:$PORT"
 python server.py "$PORT"

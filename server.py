@@ -42,6 +42,8 @@ class Handler(BaseHTTPRequestHandler):
             self._api_data()
         elif path == "/api/scan/status":
             self._json_response(_scan_status)
+        elif path == "/api/prompt":
+            self._api_prompt()
         else:
             self._json_response({"error": "not found"}, 404)
 
@@ -61,6 +63,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_scan(body)
             elif path == "/api/delete-trade":
                 self._api_delete_trade(body)
+            elif path == "/api/paste-response":
+                self._api_paste_response(body)
             else:
                 self._json_response({"error": "not found"}, 404)
         except Exception as e:
@@ -221,6 +225,35 @@ class Handler(BaseHTTPRequestHandler):
 
         _write_all(new_rows)
         self._json_response({"ok": True})
+
+    # ── API: prompt ──
+
+    def _api_prompt(self):
+        prompt_path = DATA_DIR / "pending_prompt.txt"
+        if prompt_path.exists():
+            text = prompt_path.read_text(encoding="utf-8")
+            self._json_response({"prompt": text, "length": len(text)})
+        else:
+            self._json_response({"prompt": None})
+
+    # ── API: paste Claude response ──
+
+    def _api_paste_response(self, body: dict):
+        response_text = body.get("response", "")
+        if not response_text.strip():
+            self._json_response({"error": "Empty response"}, 400)
+            return
+
+        from agent.runner import _parse_json_response
+        decision = _parse_json_response(response_text)
+
+        out_path = DATA_DIR / "latest_decision.json"
+        out_path.write_text(json.dumps(decision, indent=2), encoding="utf-8")
+
+        resp_path = DATA_DIR / "claude_response.json"
+        resp_path.write_text(json.dumps(decision, indent=2), encoding="utf-8")
+
+        self._json_response({"ok": True, "status": decision.get("status", "ok")})
 
     # ── Helpers ──
 

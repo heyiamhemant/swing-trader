@@ -218,14 +218,28 @@ input:focus, select:focus, textarea:focus { border-color:var(--blue); }
 
 <!-- SCAN -->
 <div id="tab-scan" class="tab-content">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem">
     <h1 style="margin-bottom:0">Scan Results</h1>
-    <div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
       <button class="btn btn-primary" id="btn-scan" onclick="startScan()">Run Full Scan</button>
       <button class="btn btn-outline" id="btn-scan-resp" onclick="startScan(true)">Load Saved Response</button>
     </div>
   </div>
   <div id="scan-status" style="display:none" class="alert alert-info mb-2"><span class="spinner"></span> <span id="scan-msg">Scanning...</span></div>
+  <div id="scan-manual" style="display:none" class="card mb-2">
+    <h3>Manual Step Required</h3>
+    <p class="text-dim mb-2">No automated Claude access. The prompt has been generated. Copy it, paste into claude.ai, then paste Claude's JSON response below.</p>
+    <div style="display:flex;gap:0.5rem;margin-bottom:1rem">
+      <button class="btn btn-primary" onclick="copyPrompt()">Copy Prompt to Clipboard</button>
+      <span id="copy-prompt-msg" class="text-dim" style="line-height:2.2rem"></span>
+    </div>
+    <div class="form-group">
+      <label>Paste Claude's JSON response here</label>
+      <textarea id="paste-response" style="min-height:160px;font-family:var(--mono);font-size:0.8rem" placeholder='{"analysis_summary": "...", "picks": [...]}'></textarea>
+    </div>
+    <button class="btn btn-success" onclick="submitPastedResponse()">Submit Response</button>
+    <span id="paste-msg" class="mt-1" style="margin-left:0.75rem"></span>
+  </div>
   <div id="scan-summary"></div>
   <div id="scan-picks"></div>
   <div id="scan-watchlist" class="mt-2"></div>
@@ -467,11 +481,19 @@ function renderScan() {
 let _scanPoll = null;
 async function startScan(fromResponse) {
   const btn = $('#btn-scan');
+  const btn2 = $('#btn-scan-resp');
   btn.disabled = true;
+  btn2.disabled = true;
   $('#scan-status').style.display = 'flex';
-  $('#scan-msg').textContent = 'Starting scan...';
+  $('#scan-manual').style.display = 'none';
+  $('#scan-msg').textContent = fromResponse ? 'Loading saved response...' : 'Starting scan (this can take several minutes)...';
 
-  await apiPost('/api/scan', { from_response: !!fromResponse });
+  const resp = await apiPost('/api/scan', { from_response: !!fromResponse });
+  if (resp.error) {
+    $('#scan-msg').textContent = resp.error;
+    setTimeout(() => { $('#scan-status').style.display = 'none'; btn.disabled = false; btn2.disabled = false; }, 2000);
+    return;
+  }
 
   _scanPoll = setInterval(async () => {
     try {
@@ -480,13 +502,52 @@ async function startScan(fromResponse) {
       $('#scan-msg').textContent = st.message || 'Scanning...';
       if (!st.running) {
         clearInterval(_scanPoll);
+        _scanPoll = null;
         $('#scan-status').style.display = 'none';
         btn.disabled = false;
-        await loadData();
-        renderAll();
+        btn2.disabled = false;
+
+        if (st.status === 'manual_required') {
+          $('#scan-manual').style.display = 'block';
+        } else {
+          $('#scan-manual').style.display = 'none';
+          await loadData();
+          renderAll();
+        }
       }
     } catch(e) {}
   }, 2000);
+}
+
+async function copyPrompt() {
+  try {
+    const r = await fetch(API + '/api/prompt');
+    const data = await r.json();
+    if (data.prompt) {
+      await navigator.clipboard.writeText(data.prompt);
+      $('#copy-prompt-msg').textContent = 'Copied! (' + (data.length/1000).toFixed(0) + 'KB)';
+      setTimeout(() => $('#copy-prompt-msg').textContent = '', 3000);
+    } else {
+      $('#copy-prompt-msg').textContent = 'No prompt file found. Run scan first.';
+    }
+  } catch(e) {
+    $('#copy-prompt-msg').textContent = 'Failed to copy';
+  }
+}
+
+async function submitPastedResponse() {
+  const text = $('#paste-response').value.trim();
+  if (!text) { flashMsg('#paste-msg', 'Paste the JSON response first.', false); return; }
+  const r = await apiPost('/api/paste-response', { response: text });
+  if (r.ok) {
+    $('#scan-manual').style.display = 'none';
+    $('#paste-response').value = '';
+    await loadData();
+    renderAll();
+    flashMsg('#paste-msg', '', true);
+  } else {
+    flashMsg('#paste-msg', r.error || 'Failed to parse response', false);
+  }
 }
 
 // ─── Portfolio ───
